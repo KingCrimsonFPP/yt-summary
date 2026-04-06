@@ -93,13 +93,18 @@ def get_transcript(video_id: str, with_timestamps: bool = False, lang_priority=N
 
 def main():
     import argparse
+    import time
     parser = argparse.ArgumentParser(description="Fetch YouTube transcript")
     parser.add_argument("url", help="YouTube URL or video ID")
     parser.add_argument("--timestamps", action="store_true", help="Include timestamps in output")
+    parser.add_argument("--delay", type=float, default=0, help="Seconds to wait before fetching (for batch rate limiting)")
     args = parser.parse_args()
 
     video_id = extract_video_id(args.url)
     save_last_video(video_id)
+
+    if args.delay > 0:
+        time.sleep(args.delay)
 
     try:
         transcript_text = get_transcript(video_id, with_timestamps=args.timestamps)
