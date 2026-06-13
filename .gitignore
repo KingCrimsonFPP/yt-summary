@@ -6,3 +6,5 @@ output/*.txt
 .claude/settings.local.json
 output/.last_video
 .fpp-dev
+.agents/
+.claude/
